@@ -1,30 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosopher.h                                      :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:58:32 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/09 15:45:03 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:08:14 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PHILOSOPHER_H
-# define PHILOSOPHER_H
+# ifndef PHILo_H
+# define PHILO_H
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
 # include <pthread.h>
 # include <sys/time.h>
-# include "libft.h"
+# include <limits.h>
+# include <errno.h>
 
-//./philo 5 800 200 200 [5]
-
+//enum para mutex y thread
+/*
+typedef enum e_code
+{
+	LOCK,
+	UNLOCK,
+	INIT,
+	DESTROY,
+	CREATE,
+	JOIN,
+	DETACH,
+}	t_code;
+*/
 typedef pthread_mutex_t t_mtx;
 typedef struct s_fork t_table;
-
 
 typedef struct s_fork
 {
@@ -52,11 +63,14 @@ typedef struct s_table
 	long nb_meals;
 	long limit_meal;
 	long time_start;
+	bool end;
 	t_fork *forks;
 	t_philo *philos;
 }	t_table;
 
 //prototypes
-void p_error(const char *error);
+void ft_error(const char *error);
 void parse_argv(char **argv, t_table *table);
+void *safe_malloc(size_t bytes);
+void pepe(t_table *table);
 # endif

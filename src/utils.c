@@ -6,31 +6,50 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:58:22 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/09 15:45:26 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:10:05 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philosopher.h"
+#include "../include/philo.h"
 
-void p_error(const char *error)
+void ft_error(const char *error)
 {
 	ft_printf("%s\n", error);
-	exit(EXIT_FAILURE);
+	return (0);
 }
 
-void parse_argv(char **argv, t_table *table)
+void pepe(void *table);
 {
-	table->philo_nb = ft_atoi(argv[1]);
-	table->time_die = ft_atoi(argv[2]) * 1e3;
-	table->time_eat = ft_atoi(argv[3]) * 1e3;
-	table->time_sleep = ft_atoi(argv[4]) * 1e3;
-	if (table->time_die < 6e4
-		|| table->time_eat < 6e4
-		|| table->time_sleep < 6e4)
-		p_error("use times > 60 ms");
-	if (argv[5])
-		table->limit_meal = ft_atoi(argv[5]);
-	else
-		table->limit_meal = -1;
-	return;
+	table = (t_table)table;
+	pthread_mutex_lock(&table->forks.fork_id);
+	//funcion
+	pthread_mutex_unlock(&table->forks.fork_id);
+}
+
+int	ft_atoi(const char *str)
+{
+	unsigned long	result;
+	int				sign;
+
+	sign = 1;
+	result = 0;
+	while ((*str == ' ' || ('\t' <= *str && *str <= '\r')))
+		str++;
+	if (*str == '-')
+	{
+		sign = -sign;
+		str++;
+	}
+	else if (*str == '+')
+		str++;
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + (*str - '0');
+		if (result > LONG_MAX && sign > 0)
+			return (-1);
+		if (result > LONG_MAX && sign < 0)
+			return (0);
+		str++;
+	}
+	return (result * sign);
 }

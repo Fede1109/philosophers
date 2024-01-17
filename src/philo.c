@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 17:47:51 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/02 18:45:21 by ecortes-         ###   ########.fr       */
+/*   Created: 2024/01/09 14:58:26 by ecortes-          #+#    #+#             */
+/*   Updated: 2024/01/17 10:25:45 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/philo.h"
 
-size_t	ft_strlen(const char *str)
+// ./philo 5 800 200 200 [5]
+int main(int argc, char **argv)
 {
-	size_t	i;
+	t_table table;
+	struct timeval t_time;
 
-	i = 0;
-	if (!str[0])
-		return (-1);
-	while (str[i])
+	if (argc == 5 || argc == 6)
 	{
-		i++;
+		parse_argvs(argv, &table);
+		table.time_start = gettimeofday(&t_time, NULL);
+		init(&table);
 	}
-	return (i);
+	else
+		ft_error("Wrong input\n prototype : ./philo 5 800 200 200 [5]\n");
+	return (0);
 }
