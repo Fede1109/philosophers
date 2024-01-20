@@ -6,11 +6,11 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:58:32 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/17 11:08:14 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:20:11 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PHILo_H
+# ifndef PHILO_H
 # define PHILO_H
 
 # include <unistd.h>
@@ -21,56 +21,50 @@
 # include <limits.h>
 # include <errno.h>
 
-//enum para mutex y thread
-/*
-typedef enum e_code
+typedef pthread_mutex_t t_mutex;
+typedef struct s_philo
 {
-	LOCK,
-	UNLOCK,
-	INIT,
-	DESTROY,
-	CREATE,
-	JOIN,
-	DETACH,
-}	t_code;
-*/
-typedef pthread_mutex_t t_mtx;
-typedef struct s_fork t_table;
+	pthread_t		thread;
+	int				id;
+	int				eating;
+	int				meals_eaten;
+	size_t			last_meal;
+	size_t			start_time;
+	int				*dead;
+	t_mutex	*r_fork;
+	t_mutex	*l_fork;
+	t_mutex	*write_lock;
+	t_mutex	*dead_lock;
+	t_mutex	*meal_lock;
+}					t_philo;
 
-typedef struct s_fork
+typedef struct s_program
 {
-	t_mtx fork;
-	int fork_id;
-}	t_fork;
+	size_t			nb_of_philos;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t				max_meals;
+	int				dead_flag;
+	t_mutex	dead_lock;
+	t_mutex	meal_lock;
+	t_mutex	write_lock;
+	t_philo	*philos;
+	t_mutex	*forks;
+}					t_program;
 
-typedef struct s_ph
-{
-	int id;
-	long meals;
-	bool full;
-	long meal_time;
-	t_fork *right_fk;
-	t_fork *left_fk;
-	pthread_t thread_id;
-}	t_philo;
-
-typedef struct s_table
-{
-	long philo_nb;
-	long time_die;
-	long time_eat;
-	long time_sleep;
-	long nb_meals;
-	long limit_meal;
-	long time_start;
-	bool end;
-	t_fork *forks;
-	t_philo *philos;
-}	t_table;
-
-//prototypes
-void ft_error(const char *error);
-void parse_argv(char **argv, t_table *table);
+//utils
 void *safe_malloc(size_t bytes);
-void pepe(t_table *table);
+int	ft_atoi(const char *str);
+
+//inits
+int parse_argv(char **argv);
+void init(t_program *program, char **argv);
+void init_argv(t_program *prog, char *argv);
+void init_philos(t_program *prog);
+void init_mutex(t_program *program);
+
+//main
+void free_destroy(t_program *program);
+
 # endif

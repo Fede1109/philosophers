@@ -5,26 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 14:58:22 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/17 11:10:05 by ecortes-         ###   ########.fr       */
+/*   Created: 2024/01/17 18:01:54 by ecortes-          #+#    #+#             */
+/*   Updated: 2024/01/17 18:36:33 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-
-void ft_error(const char *error)
-{
-	ft_printf("%s\n", error);
-	return (0);
-}
-
-void pepe(void *table);
-{
-	table = (t_table)table;
-	pthread_mutex_lock(&table->forks.fork_id);
-	//funcion
-	pthread_mutex_unlock(&table->forks.fork_id);
-}
 
 int	ft_atoi(const char *str)
 {
@@ -52,4 +38,14 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (result * sign);
+}
+
+void *safe_malloc(size_t bytes)
+{
+	void *ret;
+
+	ret = malloc(bytes);
+	if (ret == NULL)
+		ft_error("Error in malloc");
+	return (ret);
 }
