@@ -1,8 +1,17 @@
 #include "../include/philo.h"
 
-void    init_struct(char **str)
+int	init_struct(t_philo *philo, char **str)
 {
-    
+	philo = malloc(sizeof(t_philo));
+	if (!philo)
+		return (0);
+	philo->num_of_philos = str[1];
+	philo->time_to_die = str[2];
+	philo->time_to_eat = str[3];
+	philo->time_to_sleep = str[4];
+	if (str[5])
+		philo->nb_times_to_eat;
+	return (1);
 }
 
 int ft_check_args(char *str, int i)

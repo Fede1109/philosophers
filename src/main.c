@@ -20,7 +20,6 @@ int	main(int argc, char **argv)
 		}
 		i++;
 	}
-	init_struct(argv);
-
+	init_struct(philo, argv);
 	
 }
