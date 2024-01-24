@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:27:27 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/24 11:55:06 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:35:01 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void init_philos(t_program *prog)
 		prog->philos[i].time_to_die = &prog->time_to_die;
 		prog->philos[i].time_to_eat = &prog->time_to_eat;
 		prog->philos[i].time_to_sleep = &prog->time_to_sleep;
+		prog->philos[i].max_meals = &prog->max_meals;
 		prog->philos[i].id = ++i;
 		prog->philos[i].meals_eaten = 0;
 		prog->philos[i].write_lock = &prog->write_lock;

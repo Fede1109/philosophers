@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:01:54 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/17 18:36:33 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:32:14 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,13 @@ void *safe_malloc(size_t bytes)
 	if (ret == NULL)
 		ft_error("Error in malloc");
 	return (ret);
+}
+
+size_t	get_current_time(void)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }

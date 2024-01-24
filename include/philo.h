@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:58:32 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/24 11:51:52 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:34:11 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_philo
 	size_t			*time_to_die;
 	size_t			*time_to_eat;
 	size_t			*time_to_sleep;
+	size_t			*max_meals;
 	pthread_t		thread;
 	int				id;
 	int				meals_eaten;
@@ -59,6 +60,7 @@ typedef struct s_program
 //utils
 void *safe_malloc(size_t bytes);
 int	ft_atoi(const char *str);
+size_t	get_current_time(void);
 
 //inits
 int parse_argv(char **argv);

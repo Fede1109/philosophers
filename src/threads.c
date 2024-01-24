@@ -6,15 +6,12 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:00:28 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/20 17:47:02 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:34:21 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-
-// EN VEZ XE HACER UN OBSERVADOR PODEMOS HACER QUE EL OBSERVADOR SEA EL 
-//MAIN QUE AL FINAL ES OTRO THREAD PERO NO HAY QUE CREARLO
 void threads(t_program *program)
 {
 	//pthread_t obs;
@@ -42,5 +39,23 @@ void threads(t_program *program)
 
 void routine(void *ptr)
 {
-	
+	t_philo *philo;
+
+	philo = (t_philo *) ptr;
+	while (philo->dead_lock != 1)
+	{
+		write(1, "philo is waiting", 16);
+		if (pthread_mutex_lock(philo->r_fork) == 0 && pthread_mutex_lock(philo->l_fork) == 0)
+		{
+			write(1, "philo is eating", 16);
+			philo->meals_eaten++;
+			usleep(philo->time_to_eat);
+			philo->last_meal = get_current_time();
+			pthread_mutex_unlock(philo->r_fork);
+			pthread_mutex_unlock(philo->l_fork);
+		}
+		if(philo->max_meals == philo->meals_eaten)
+			philo->dead_lock = 1;
+		usleep(philo->time_to_sleep);
+	}
 }
