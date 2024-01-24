@@ -2,15 +2,25 @@
 
 int	init_struct(t_philo *philo, char **str)
 {
+	int	i;
+
+	i = 0;
 	philo = malloc(sizeof(t_philo));
 	if (!philo)
 		return (0);
-	philo->num_of_philos = str[1];
-	philo->time_to_die = str[2];
-	philo->time_to_eat = str[3];
-	philo->time_to_sleep = str[4];
+	while (str[i])
+	{
+		if (ft_atoi(str[i]) < 0)
+			return (0);
+		i++;
+	}
+	
+	philo->num_of_philos = ft_atoi(str[1]);
+	philo->time_to_die = ft_atoi(str[2]);
+	philo->time_to_eat = ft_atoi(str[3]);
+	philo->time_to_sleep = ft_atoi(str[4]);
 	if (str[5])
-		philo->nb_times_to_eat;
+		philo->nb_times_to_eat = ft_atoi(str[5]);
 	return (1);
 }
 
