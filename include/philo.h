@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:58:32 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/17 20:20:11 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:51:52 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@
 typedef pthread_mutex_t t_mutex;
 typedef struct s_philo
 {
+	size_t			*nb_of_philos;
+	size_t			*time_to_die;
+	size_t			*time_to_eat;
+	size_t			*time_to_sleep;
 	pthread_t		thread;
 	int				id;
-	int				eating;
 	int				meals_eaten;
 	size_t			last_meal;
 	size_t			start_time;

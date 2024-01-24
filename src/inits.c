@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:27:27 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/17 20:01:56 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:55:06 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,19 @@ void init_philos(t_program *prog)
 	i = 0;
 	while (i < ft_atoi)
 	{
+		prog->philos[i].nb_of_philos = &prog->nb_of_philos;
+		prog->philos[i].time_to_die = &prog->time_to_die;
+		prog->philos[i].time_to_eat = &prog->time_to_eat;
+		prog->philos[i].time_to_sleep = &prog->time_to_sleep;
 		prog->philos[i].id = ++i;
-		prog->philos[i].eating = 0;
 		prog->philos[i].meals_eaten = 0;
 		prog->philos[i].write_lock = &prog->write_lock;
 		prog->philos[i].meal_lock = &prog->meal_lock;
 		prog->philos[i].dead_lock = &prog->dead_lock;
 		prog->philos[i].l_fork = &prog->forks[i];
 		prog->philos[i].dead = &prog->dead_flag;
-		//philos[i].start_time = get_current_time();
-		//philos[i].last_meal = get_current_time();
+		prog->philos[i].start_time = get_current_time();
+		prog->philos[i].last_meal = get_current_time();
 		if (i == 0)
 			prog->philos[i].r_fork = &prog->forks[prog->nb_of_philos -1];
 		else
