@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:00:28 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/02/12 17:03:07 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:06:52 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ void *routine(void *ptr)
 
 void eat(t_philo *philo)
 {
+	char num;
+
+	num = philo->id + 48;
 	pthread_mutex_lock(philo->r_fork);
 	pthread_mutex_lock(philo->l_fork);
 	pthread_mutex_lock(philo->write_lock);
 	//write timestamp
-	
+	write(1, &num, 1);
 	write(1, " is eating\n", 12);
 	pthread_mutex_unlock(philo->write_lock);
 	philo->meals_eaten++;
@@ -78,15 +81,25 @@ void eat(t_philo *philo)
 
 void think(t_philo *philo)
 {
+	char num;
+
+	num = philo->id + 48;
 	if (pthread_mutex_lock(philo->write_lock) == 0)
-		write(1, "philo is thinking\n", 19);
+	{
+		write(1, &num, 1);
+		write(1, " is thinking\n", 14);
+	}
 	pthread_mutex_unlock(philo->write_lock);
 }
 
 void philosleep(t_philo *philo)
 {
+	char num;
+
+	num = philo->id + 48;
 	pthread_mutex_lock(philo->write_lock);
-	write(1, "philo is sleeping\n", 19);
+	write(1, &num, 1);
+	write(1, " is sleeping\n", 14);
 	pthread_mutex_unlock(philo->write_lock);
 	usleep(*philo->time_to_sleep);
 }
