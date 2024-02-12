@@ -6,13 +6,13 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:01:54 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/01/24 12:32:14 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:04:52 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	ft_atoi(const char *str)
+int	ft_atoi(char *str)
 {
 	unsigned long	result;
 	int				sign;
@@ -57,4 +57,16 @@ size_t	get_current_time(void)
 	if (gettimeofday(&time, NULL) == -1)
 		write(2, "gettimeofday() error\n", 22);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void ft_error(char *str)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i])
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
 }
