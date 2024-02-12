@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:27:27 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/02/12 16:54:46 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:40:16 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int parse_argv(char **argv)
 {
-	printf("parseo\n");
 	if (ft_atoi(argv[1]) > 200 || ft_atoi(argv[1]) <= 0)
 		return (write(2, "Invalid philosophers number\n", 29), 1);
 	if (ft_atoi(argv[2]) <= 0)
@@ -40,8 +39,8 @@ void init(t_program *program, char **argv)
 
 void init_argv(t_program *prog, char **argv)
 {
-	prog->philos = (t_philo *)malloc(sizeof(t_philo) * ft_atoi(argv[1]));
-	prog->forks = (t_mutex *)malloc(sizeof(t_philo) * ft_atoi(argv[1]));
+	prog->philos = (t_philo *)safe_malloc(sizeof(t_philo) * ft_atoi(argv[1]));
+	prog->forks = (t_mutex *)safe_malloc(sizeof(t_philo) * ft_atoi(argv[1]));
 	prog->nb_of_philos = ft_atoi(argv[1]);
 	prog->time_to_die = ft_atoi(argv[2]);
 	prog->time_to_eat = ft_atoi(argv[3]);
