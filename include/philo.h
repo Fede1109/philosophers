@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:58:32 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/02/12 17:23:05 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:27:49 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,8 @@ void eat(t_philo *philo);
 void philosleep(t_philo *philo);
 void think(t_philo *philo);
 void *routine(void *ptr);
+
+//observer
+void *observer(void *ptr);
 
 # endif

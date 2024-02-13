@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:02:01 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/02/12 16:58:05 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:36:40 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void free_destroy(t_program *program)
 	i = 0;
 	//pthread_mutex_destroy(&program->dead_lock);
 	//pthread_mutex_destroy(&program->meal_lock);
-	//pthread_mutex_destroy(&program->write_lock);
+	pthread_mutex_destroy(&program->write_lock);
 	while(i < program->nb_of_philos)
 	{
 		pthread_mutex_destroy(&program->forks[i]);

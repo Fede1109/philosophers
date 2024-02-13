@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:27:27 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/02/12 17:40:16 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:33:49 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 int parse_argv(char **argv)
 {
 	if (ft_atoi(argv[1]) > 200 || ft_atoi(argv[1]) <= 0)
-		return (write(2, "Invalid philosophers number\n", 29), 1);
+		return (printf("Invalid philosophers number\n"));
 	if (ft_atoi(argv[2]) <= 0)
-			return (write(2, "Invalid time to die\n", 21), 1);
+			return (printf("Invalid time to die\n"));
 	if (ft_atoi(argv[3]) <= 0)
-			return (write(2, "Invalid time to eat\n", 21), 1);
+			return (printf("Invalid time to eat\n"));
 	if (ft_atoi(argv[4]) <= 0)
-		return (write(2, "Invalid time to sleep\n", 23), 1);
+		return (printf("Invalid time to sleep\n"));
 	if (argv[5] && ft_atoi(argv[5]) < 0)
-		return (write(2, "Invalid times must eat\n",51), 1);
+		return (printf("Invalid times must eat\n"));
 	return (0);
 }
 void init(t_program *program, char **argv)
 {
 	program->dead_flag = 0;
-	pthread_mutex_init(&program->dead_lock, NULL);
+	//pthread_mutex_init(&program->dead_lock, NULL);
 	// pthread_mutex_init(&program->meal_lock, NULL);
 	pthread_mutex_init(&program->write_lock, NULL);
 	init_argv(program, argv);

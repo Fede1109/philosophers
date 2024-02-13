@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:00:28 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/02/12 17:39:18 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:36:13 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void threads(t_program *program)
 {
-	//pthread_t obs;
+	pthread_t obs;
 	size_t i;
 	i = 0;
-	//if(!pthread_create(&obs, NULL, &func, program->philos))
-	//	free_destroy(program);
+	if(!pthread_create(&obs, NULL, &observer, (void *)program))
+		free_destroy(program);
 	while(i < program->nb_of_philos)
 	{
 		if(pthread_create(&(program->philos[i].thread), NULL, &routine, (void *)(&program->philos[i])) != 0)
@@ -28,8 +28,6 @@ void threads(t_program *program)
 		}
 		i++;
 	}
-	//if (!pthread_join(obs, NULL))
-	//	free_destroy(program);
 	i = 0;
 	while (i < program->nb_of_philos)
 	{
@@ -37,15 +35,16 @@ void threads(t_program *program)
 			free_destroy(program);
 		i++;
 	}
+	if (!pthread_join(obs, NULL))
+		free_destroy(program);
 }
 
-void *routine(void *ptr)
+void	*routine(void *ptr)
 {
-	t_philo *philo;
+	t_philo	*philo;
 	
 	philo = (t_philo *) ptr;
 	while (*philo->dead != 1)
-	// while(1)
 	{
 		eat(philo);
 		think(philo);
@@ -54,16 +53,21 @@ void *routine(void *ptr)
 	return (NULL);
 }
 
-void eat(t_philo *philo)
+void	eat(t_philo *philo)
 {
 	size_t	time;
 
 	pthread_mutex_lock(philo->r_fork);
 	pthread_mutex_lock(philo->l_fork);
-	pthread_mutex_lock(philo->write_lock);
 	time = get_current_time() - philo->start_time;
-	printf("%zu %d is eating\n", time, philo->id);
-	pthread_mutex_unlock(philo->write_lock);
+	if(time > *philo->time_to_die)
+		*philo->dead = 1;
+	else
+	{
+		pthread_mutex_lock(philo->write_lock);
+		printf("%zu %d is eating\n", time, philo->id);
+		pthread_mutex_unlock(philo->write_lock);
+	}
 	philo->meals_eaten++;
 	ft_usleep(*philo->time_to_eat);
 	philo->last_meal = get_current_time();
@@ -74,16 +78,19 @@ void eat(t_philo *philo)
 		*philo->dead = 1;
 }
 
-void think(t_philo *philo)
+void	think(t_philo *philo)
 {
-	size_t time;
+	size_t	time;
 
-	if (pthread_mutex_lock(philo->write_lock) == 0)
+	time = get_current_time() - philo->start_time;
+	if(time > *philo->time_to_die)
+		*philo->dead = 1;
+	else
 	{
-		time = get_current_time() - philo->start_time;
+		pthread_mutex_lock(philo->write_lock);
 		printf("%zu %d is thinking\n", time, philo->id);
+		pthread_mutex_unlock(philo->write_lock);
 	}
-	pthread_mutex_unlock(philo->write_lock);
 }
 
 void philosleep(t_philo *philo)
@@ -92,7 +99,10 @@ void philosleep(t_philo *philo)
 
 	pthread_mutex_lock(philo->write_lock);
 	time = get_current_time() - philo->start_time;
-	printf("%zu %d is sleeping\n", time, philo->id);
+	if(time > *philo->time_to_die)
+		*philo->dead = 1;
+	else
+		printf("%zu %d is sleeping\n", time, philo->id);
 	pthread_mutex_unlock(philo->write_lock);
 	ft_usleep(*philo->time_to_sleep);
 }

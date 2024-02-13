@@ -18,6 +18,7 @@ SRCS        :=      src/inits.c \
                           src/main.c \
                           src/threads.c \
                           src/utils.c \
+						  src/observer.c \
                           
 OBJS        := $(SRCS:.c=.o)
 
