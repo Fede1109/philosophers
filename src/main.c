@@ -3,45 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 18:02:01 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/02/13 15:36:40 by ecortes-         ###   ########.fr       */
+/*   Created: 2024/03/18 11:07:29 by fdiaz-gu          #+#    #+#             */
+/*   Updated: 2024/03/19 14:41:27 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-	t_program program;
-	//t_philo *philos;
-	//t_mutex *forks;
-
+	t_philo_program	program;
 
 	if (argc != 5 && argc != 6)
+		return (ft_error(0));
+	if (check_args(&program, argv) != 0)
 		return (1);
-	parse_argv(argv);
-	init(&program, argv);
-	threads(&program);
-	return (0);
-}
+	printf("philos: %d\n", program.nb_philos);
+	printf("tm die: %d\n", program.time_to_die);
+	printf("tm eat: %d\n", program.time_to_eat);
+	printf("tm sleep: %d\n", program.time_to_sleep);
+	printf("nb must eat: %d\n", program.nb_must_eat);
 
-void free_destroy(t_program *program)
-{
-	size_t i;
-	
-	i = 0;
-	//pthread_mutex_destroy(&program->dead_lock);
-	//pthread_mutex_destroy(&program->meal_lock);
-	pthread_mutex_destroy(&program->write_lock);
-	while(i < program->nb_of_philos)
-	{
-		pthread_mutex_destroy(&program->forks[i]);
-		i++;
-	}
-	if (program->philos)
-		free(program->philos);
-	if (program->forks)
-		free(program->forks);
+	return (0);
 }
