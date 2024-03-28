@@ -6,13 +6,14 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:07:46 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/03/19 14:37:56 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/03/28 12:41:28 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <pthread.h>
 # include <limits.h>
 # include <stdio.h>
 
@@ -23,6 +24,7 @@
 
 typedef struct s_philo_program
 {
+	int	id;
 	int nb_philos;
 	int	time_to_die;
 	int	time_to_eat;
