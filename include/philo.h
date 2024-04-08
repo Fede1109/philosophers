@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:07:46 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/05 16:52:45 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:37:38 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ typedef struct s_philo
 {
 	pthread_t		thread;
 	int				id;
-	int 			last_meal;
-	int 			meals_eaten;
+	int				last_meal;
+	int				meals_eaten;
 	int				nb_must_eat;
-	int 			nb_philos;
+	int				nb_philos;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
@@ -46,20 +46,18 @@ typedef struct s_philo_program
 	t_philo			*philos;
 }	t_philo_program;
 
-
+	/*	aux functions.c	*/
 int		ft_atoi(const char *str);
-int		check_args(t_philo_program *prog, char **argv);
-int		check_if_nb(char *str);
 int		ft_error(int nb);
-void	init_args(t_philo_program *prog, char **argv);
-void	*routine();
+	/*	check_args.c	*/
+int		check_if_nb(char *str);
+int		check_args(t_philo_program *prog, char **argv);
+void	init_args(t_philo *philo, char **argv);
+	/*	init.c	*/
 void	create_philos(t_philo_program *program, int philos);
-void	init_philos(t_philo_program *program);
+void	init_philos(t_philo_program *program, char **argv);
 void	init_forks(t_philo_program *program);
-
-
-
-
-
-
-# endif
+void	init_all(t_philo_program *prog, char **argv);
+	/*	routine.c	*/
+void	*routine(void);
+#endif

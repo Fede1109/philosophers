@@ -6,11 +6,17 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:33:45 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/05 16:52:17 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:50:07 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+void	init_all(t_philo_program *prog, char **argv)
+{
+	init_philos(prog, argv);
+	// init_forks(prog);
+}
 
 void	init_forks(t_philo_program *program)
 {
@@ -26,27 +32,21 @@ void	init_forks(t_philo_program *program)
 		i++;
 	}
 }
-void	init_philos(t_philo_program *program)
+void	init_philos(t_philo_program *program, char **argv)
 {
 	int		i;
 
 	i = 0;
-	while (i < program->philos->nb_philos)
+	while (i < ft_atoi(argv[1]))
 	{
 		program->philos[i].id = i + 1;
 		program->philos[i].last_meal = 0;
 		program->philos[i].meals_eaten = 0;
+		init_args(&program->philos[i], argv);
 		// program->philos[i].start_time = get_time();
 		i++;
 	}
-	i = 0;
-	while (i < program->philos->nb_philos)
-	{
-		pthread_create(&(program->philos[i].thread), NULL, &routine, NULL);
-		i++;
-	}
 }
-
 void	create_philos(t_philo_program *program, int philos)
 {
 	program->philos = malloc(sizeof(t_philo) * philos);

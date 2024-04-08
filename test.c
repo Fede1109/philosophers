@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:27:46 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/02 12:45:11 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/08 11:20:44 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,34 @@
 // 	printf("Numbres of maills: %d\n", mails);
 // 	return (0);
 // }
+size_t	get_current_time(void)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+int	ft_usleep(size_t milliseconds)
+{
+	size_t	start;
+
+	start = get_current_time();
+	while ((get_current_time() - start) < milliseconds)
+		usleep(500);
+	return (0);
+}
+
 
 int main(void)
-{
-	struct timeval	start;
-	struct timeval	end;
-	gettimeofday(&start, NULL);
-	sleep(2);
-	gettimeofday(&end, NULL);
-  	printf("seconds : %ld\nmicro seconds : %ld",
-    end.tv_sec - start.tv_sec, end.tv_usec - start.tv_usec);
+{	
+	size_t init;
+	while (1)
+	{
+		init = get_current_time();
+		ft_usleep(2000);
+		printf("mili: %zu\n", get_current_time() - init);
+	}	
 	return (0);
 }
