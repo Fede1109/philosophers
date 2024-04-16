@@ -6,11 +6,19 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:08:23 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/03/19 15:00:58 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:00:24 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+void	print_msg(char *str, t_philo *philo)
+{
+	pthread_mutex_lock(philo->print_lock);
+	printf("%zu Philo %d ", get_current_time() - philo->start_time, philo->id);
+	printf("%s\n", str);
+	pthread_mutex_unlock(philo->print_lock);
+}
 
 int	ft_error(int nb)
 {
@@ -76,4 +84,3 @@ int	ft_atoi(const char *str)
 	}
 	return (result * sign);
 }
-

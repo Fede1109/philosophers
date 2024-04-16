@@ -6,33 +6,37 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:00:01 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/08 16:22:36 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:53:37 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../include/philo.h"
 
-void	think(t_philo *philo)
+void	ph_think(t_philo *philo)
 {
-	printf("Philo %d is thinking", philo->id);
+	print_msg("is thinking", philo);
 }
 
-void	sleep(t_philo *philo)
+void	ph_sleep(t_philo *philo)
 {
-	printf("Philo %d is sleeping", philo->id);
-	//TODO: sleeping function
-	sleeping(philo->time_to_sleep);
-	
+	print_msg("is sleeping", philo);
+	ft_sleep(*philo->time_to_sleep);
 }
 
-void	eat(t_philo *philo)
+void	ph_eat(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->l_fork);
-	printf("Philo %d took left fork", philo->id);
-	pthread_mutex_lock(&philo->r_fork);
-	printf("Philo %d took a fork", philo->id);
-	printf("Philo %d is eating", philo->id);
-	pthread_mutex_unlock(&philo->l_fork);
-	pthread_mutex_unlock(&philo->r_fork);
+	pthread_mutex_lock(philo->r_fork);
+	print_msg("took a fork", philo);
+	pthread_mutex_lock(philo->l_fork);
+	print_msg("took a fork", philo);
+	if (get_current_time() - philo->last_meal > *philo->time_to_die)
+		*philo->dead_flag = 1;
+	print_msg("is eating", philo);
+	pthread_mutex_lock(philo->meal_lock);
+	philo->last_meal = get_current_time();
+	philo->meals_eaten++;
+	pthread_mutex_unlock(philo->meal_lock);
+	ft_sleep(*philo->time_to_eat);
+	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
 }

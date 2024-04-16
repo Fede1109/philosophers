@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 11:07:29 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/16 12:09:44 by fdiaz-gu         ###   ########.fr       */
+/*   Created: 2024/04/16 15:14:52 by fdiaz-gu          #+#    #+#             */
+/*   Updated: 2024/04/16 15:15:07 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	main(int argc, char **argv)
+void	destroy_mutex(t_philo_program *prog)
 {
-	t_philo_program	program;
+	int	i;
 
-	if (argc != 5 && argc != 6)
-		return (ft_error(0));
-	if (check_args(&program, argv) != 0)
-		return (1);
-	init_all(&program, argv);
-	destroy_mutex(&program);
-	return (0);
+	i = 0;
+	pthread_mutex_destroy(&prog->meal_lock);
+	pthread_mutex_destroy(&prog->print_lock);
+	while (i < prog->nb_philos)
+	{
+		pthread_mutex_destroy(&prog->forks[i]);
+		i++;
+	}
 }
