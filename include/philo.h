@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:07:46 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/16 16:02:54 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:11:58 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
-# define RED "\033[31m"
-# define NORMAL "\033[0m"
+# define RED "\033[0;31m"
+# define SLEEP "\033[0;95m"
+# define DIE "\033[0;30m"
+# define EAT "\033[0;93m"
+# define THINK "\033[0;94m"
+# define RESET "\033[0m"
 
 # define MAX_PHILOS 200
 
@@ -39,8 +43,8 @@ typedef struct s_philo
 	int				*nb_philos;
 	int				*dead_flag;
 	int				id;
-	int				last_meal;
 	int				meals_eaten;
+	size_t			last_meal;
 	size_t			start_time;
 }	t_philo;
 
@@ -63,7 +67,7 @@ typedef struct s_philo_program
 int		ft_atoi(const char *str);
 int		ft_error(int nb);
 size_t	get_current_time(void);
-void	print_msg(char *str, t_philo *philo);
+void	print_msg(char *str, t_philo *philo, char *action);
 	/*	check_args.c	*/
 int		check_if_nb(char *str);
 int		check_args(t_philo_program *prog, char **argv);
@@ -83,4 +87,8 @@ int		ft_sleep(size_t milliseconds);
 void	ph_sleep(t_philo *philo);
 void	ph_eat(t_philo *philo);
 void	ph_think(t_philo *philo);
+	/*	die.c	*/
+void	*monitoring(void *ptr);
+int		dead_loop(t_philo *philo);
+
 #endif

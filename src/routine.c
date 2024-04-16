@@ -6,16 +6,12 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:02:07 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/16 15:42:08 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:59:43 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	*monitoring(void *ptr)
-{
-	return (ptr);
-}
 
 void	start_routine(t_philo_program *prog, int philos)
 {
@@ -23,13 +19,12 @@ void	start_routine(t_philo_program *prog, int philos)
 	int			i;
 
 	i = 0;
-	if (pthread_create(&monitor, NULL, &monitoring, prog) != 0)
+	if (pthread_create(&monitor, NULL, &monitoring, prog->philos) != 0)
 		return ;
 	while (i < philos)
 	{
 		if (pthread_create(&prog->philos[i].thread, NULL, &routine, &prog->philos[i]) != 0)
 			destroy_mutex(prog);
-			// return ;
 		i++;
 	}
 	i = 0;
@@ -48,7 +43,7 @@ void	*routine(void	*pointer)
 	philo = (t_philo*) pointer;
 	if (philo->id % 2 == 0)
 		ft_sleep(1);
-	while (1)
+	while (!dead_loop(philo))
 	{
 		ph_eat(philo);
 		ph_sleep(philo);	

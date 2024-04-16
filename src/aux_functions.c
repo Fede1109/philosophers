@@ -6,36 +6,39 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:08:23 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/16 12:00:24 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:21:58 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	print_msg(char *str, t_philo *philo)
+void	print_msg(char *str, t_philo *philo, char *action)
 {
 	pthread_mutex_lock(philo->print_lock);
-	printf("%zu Philo %d ", get_current_time() - philo->start_time, philo->id);
-	printf("%s\n", str);
+	if (!dead_loop(philo))
+	{
+		printf("%s %zu Philo %d ", action, get_current_time() - philo->start_time, philo->id);
+		printf("%s %s\n", str, RESET);
+	}
 	pthread_mutex_unlock(philo->print_lock);
 }
 
 int	ft_error(int nb)
 {
 	if (nb == 0)
-		printf("%s Invalid number of arguments %s\n", RED, NORMAL);
+		printf("%s Invalid number of arguments %s\n", RED, RESET);
 	else if (nb == 1)
-		printf("%s Invalid argument, only numbers %s\n", RED, NORMAL);
+		printf("%s Invalid argument, only numbers %s\n", RED, RESET);
 	else if (nb == 2)
-		printf("%s Number of philos between 2 & 200 %s\n", RED, NORMAL);
+		printf("%s Number of philos between 2 & 200 %s\n", RED, RESET);
 	else if (nb == 3)
-		printf("%s Invalid time to die %s\n", RED, NORMAL);
+		printf("%s Invalid time to die %s\n", RED, RESET);
 	else if (nb == 4)
-		printf("%s Invalid time to eat %s\n", RED, NORMAL);
+		printf("%s Invalid time to eat %s\n", RED, RESET);
 	else if (nb == 5)
-		printf("%s Invalid time to sleep %s\n", RED, NORMAL);
+		printf("%s Invalid time to sleep %s\n", RED, RESET);
 	else if (nb == 6)
-		printf("%s Invalid times to eat %s\n", RED, NORMAL);
+		printf("%s Invalid times to eat %s\n", RED, RESET);
 	return (1);
 }
 
