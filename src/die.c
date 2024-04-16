@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:00:26 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/16 18:20:00 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:05:45 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ int	dead_loop(t_philo *philo)
 
 int	check_philo_death(t_philo *philo)
 {
-	printf("ID: %d - time_to_die: %zu - last_meal: %zu  current_day: %zu\n", philo->id, *philo->time_to_die, philo->last_meal, get_current_time());
 	pthread_mutex_lock(philo->meal_lock);
+	printf("ID: %d - time_to_die: %zu - last_meal: %zu  current_day: %zu\n",
+		philo->id, *philo->time_to_die, philo->last_meal, get_current_time());
 	if (get_current_time() - philo->last_meal > *philo->time_to_die)
 		return (pthread_mutex_unlock(philo->meal_lock), 1);
 	pthread_mutex_unlock(philo->meal_lock);
@@ -55,11 +56,11 @@ void	*monitoring(void *ptr)
 {
 	t_philo	*philos;
 
-	philos = (t_philo*) ptr;
+	philos = (t_philo *) ptr;
 	while (1)
 	{
-		if (check_any_death(philos) == 1)
-		break ;
+		if (check_any_death(philos))
+			break ;
 	}
 	return (ptr);
 }

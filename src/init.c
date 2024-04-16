@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:33:45 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/16 15:51:18 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:04:29 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ void	create_philos(t_philo_program *prog, int philos)
 {
 	prog->philos = malloc(sizeof(t_philo) * philos);
 	if (!prog->philos)
-		return ;	
+		return ;
 }

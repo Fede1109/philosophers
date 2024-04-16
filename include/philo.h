@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:07:46 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/16 18:11:58 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:03:25 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
-	pthread_mutex_t *print_lock;
-	pthread_mutex_t *meal_lock;
+	pthread_mutex_t	*print_lock;
+	pthread_mutex_t	*meal_lock;
 	pthread_mutex_t	*dead_lock;
 	size_t			*time_to_die;
 	size_t			*time_to_eat;
@@ -51,8 +51,8 @@ typedef struct s_philo
 typedef struct s_philo_program
 {
 	pthread_mutex_t	*forks;
-	pthread_mutex_t print_lock;
-	pthread_mutex_t meal_lock;
+	pthread_mutex_t	print_lock;
+	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	dead_lock;
 	int				nb_philos;
 	int				nb_must_eat;
@@ -78,7 +78,7 @@ void	init_philos(t_philo_program *program, char **argv);
 void	init_forks(t_philo_program *prog, int philos);
 void	init_all(t_philo_program *prog, char **argv);
 	/*	routine.c	*/
-void    *routine(void *pointer);
+void	*routine(void *pointer);
 void	destroy_mutex(t_philo_program *prog);
 void	start_routine(t_philo_program *prog, int philos);
 	/*	time.c	*/
