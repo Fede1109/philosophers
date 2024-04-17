@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:33:45 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/17 10:51:14 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/17 12:17:28 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	init_philos(t_philo_program *prog, char **argv)
 	while (i < ft_atoi(argv[1]))
 	{
 		prog->philos[i].id = i + 1;
-		prog->philos[i].last_meal = 0;
 		prog->philos[i].meals_eaten = 0;
 		init_philos_args(prog, &prog->philos[i]);
+		prog->philos[i].last_meal = get_current_time();
 		prog->philos[i].start_time = get_current_time();
 		prog->philos[i].l_fork = &prog->forks[i];
 		if (i == 0)
@@ -65,7 +65,6 @@ void	init_philos(t_philo_program *prog, char **argv)
 		i++;
 	}
 	prog->dead_flag = 0;
-	// prog->philos = philos;
 	pthread_mutex_init(&prog->print_lock, NULL);
 	pthread_mutex_init(&prog->dead_lock, NULL);
 	pthread_mutex_init(&prog->meal_lock, NULL);
