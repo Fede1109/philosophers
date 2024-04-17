@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:33:45 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/16 19:04:29 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/17 10:51:14 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ void	init_philos(t_philo_program *prog, char **argv)
 			prog->philos[i].r_fork = &prog->forks[i - 1];
 		i++;
 	}
+	prog->dead_flag = 0;
+	// prog->philos = philos;
+	pthread_mutex_init(&prog->print_lock, NULL);
+	pthread_mutex_init(&prog->dead_lock, NULL);
+	pthread_mutex_init(&prog->meal_lock, NULL);
 	start_routine(prog, ft_atoi(argv[1]));
 }
 

@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:00:01 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/16 19:09:25 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/17 11:10:47 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ void	ph_eat(t_philo *philo)
 	pthread_mutex_lock(philo->l_fork);
 	print_msg("took a fork", philo, EAT);
 	print_msg("is eating", philo, EAT);
+	if (check_philo_death(philo))
+	{
+		print_msg("died", philo, DIE);
+		pthread_mutex_lock(philo->dead_lock);
+		*philo->dead_flag = 1;
+		pthread_mutex_unlock(philo->dead_lock);
+	}
 	pthread_mutex_lock(philo->meal_lock);
 	philo->last_meal = get_current_time();
 	// printf("LAST: %zu\n", philo->last_meal);

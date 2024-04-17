@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:07:46 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/16 19:03:25 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/17 11:08:48 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ void	ph_think(t_philo *philo);
 	/*	die.c	*/
 void	*monitoring(void *ptr);
 int		dead_loop(t_philo *philo);
+int		check_philo_death(t_philo *philo);
+
 
 #endif
