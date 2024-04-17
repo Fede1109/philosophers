@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:00:26 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/17 12:45:49 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:16:49 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,21 @@ int	check_all_eaten(t_philo *philos)
 	int	i;
 
 	i = 0;
-	printf("");
-	if (*philos[i].nb_must_eat != -1)
+	if (*philos->nb_must_eat != -1)
 	{
 		while (i < *philos->nb_philos)
 		{
+			pthread_mutex_lock(philos->meal_lock);
 			if (*philos->nb_must_eat == philos[i].meals_eaten)
-				return (1);
-			i++;
+				i++;
+			pthread_mutex_unlock(philos->meal_lock);
+		}
+		if (i == *philos->nb_philos)
+		{
+			pthread_mutex_lock(philos->dead_lock);
+			*philos->dead_flag = 1;
+			pthread_mutex_unlock(philos->dead_lock);
+			return (1);
 		}
 	}		
 	return (0);
@@ -75,9 +82,9 @@ void	*monitoring(void *ptr)
 	philos = (t_philo *) ptr;
 	while (1)
 	{
-		// if (check_any_death(philos) || check_all_eaten(philos))
-		if (check_any_death(philos))
+		if (check_any_death(philos) || check_all_eaten(philos))
 			break ;
+		// if (check_any_death(philos))
 	}
 	return (ptr);
 }

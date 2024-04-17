@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:33:45 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/17 12:17:28 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:21:41 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_philos_args(t_philo_program *prog, t_philo *philo)
 	philo->meal_lock = &prog->meal_lock;
 	philo->print_lock = &prog->print_lock;
 	philo->dead_lock = &prog->dead_lock;
+	philo->nb_must_eat = &prog->nb_must_eat;
 	philo->nb_philos = &prog->nb_philos;
 	philo->dead_flag = &prog->dead_flag;
 	philo->time_to_die = &prog->time_to_die;

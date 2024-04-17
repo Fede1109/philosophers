@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:54:05 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/16 15:51:48 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:41:28 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_args(t_philo_program *prog, char **argv)
 	if (check_if_nb(argv[1]) || check_if_nb(argv[2]) || check_if_nb(argv[3])
 		|| check_if_nb(argv[4]))
 		return (ft_error(1));
-	if (ft_atoi(argv[1]) < 2 || ft_atoi(argv[1]) > MAX_PHILOS)
+	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > MAX_PHILOS)
 		return (ft_error(2));
 	if (ft_atoi(argv[2]) <= 0)
 		return (ft_error(3));
