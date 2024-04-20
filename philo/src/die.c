@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:00:26 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/17 17:49:11 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:18:47 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_all_eaten(t_philo *philos)
 			*philos->dead_flag = 1;
 			return (pthread_mutex_unlock(philos->dead_lock), 1);
 		}
-	}		
+	}
 	return (0);
 }
 
@@ -55,9 +55,12 @@ int	dead_loop(t_philo *philo)
 
 int	check_philo_death(t_philo *philo)
 {
-	pthread_mutex_lock(philo->meal_lock);	
-	if (get_current_time() - philo->last_meal > *philo->time_to_die)
-		return (pthread_mutex_unlock(philo->meal_lock), 1);
+	pthread_mutex_lock(philo->meal_lock);
+	if (get_current_time() - philo->last_meal >= *philo->time_to_die)
+	{
+		pthread_mutex_unlock(philo->meal_lock);
+		return (1);
+	}
 	pthread_mutex_unlock(philo->meal_lock);
 	return (0);
 }
@@ -91,7 +94,6 @@ void	*monitoring(void *ptr)
 	{
 		if (check_any_death(philos) || check_all_eaten(philos))
 			break ;
-		// if (check_any_death(philos))
 	}
 	return (ptr);
 }

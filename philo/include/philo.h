@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:07:46 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/17 11:08:48 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:13:29 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define EAT "\033[0;93m"
 # define THINK "\033[0;94m"
 # define RESET "\033[0m"
-
 # define MAX_PHILOS 200
 
 typedef struct s_philo
@@ -91,6 +90,5 @@ void	ph_think(t_philo *philo);
 void	*monitoring(void *ptr);
 int		dead_loop(t_philo *philo);
 int		check_philo_death(t_philo *philo);
-
 
 #endif

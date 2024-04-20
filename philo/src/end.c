@@ -6,7 +6,7 @@
 /*   By: fdiaz-gu <fdiaz-gu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:14:52 by fdiaz-gu          #+#    #+#             */
-/*   Updated: 2024/04/17 17:35:51 by fdiaz-gu         ###   ########.fr       */
+/*   Updated: 2024/04/20 10:55:56 by fdiaz-gu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	destroy_mutex(t_philo_program *prog)
 	int	i;
 
 	i = 0;
-	
 	pthread_mutex_destroy(&prog->meal_lock);
 	pthread_mutex_destroy(&prog->print_lock);
 	pthread_mutex_destroy(&prog->dead_lock);
